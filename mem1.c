@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void test_mem1(void)
+int test_mem1(void)
 {
 
     //This request space for 30 type double values and sets ptrMem to point
@@ -17,15 +17,16 @@ void test_mem1(void)
     printf("ptrMem[0]: %f\n",*ptrMem);
 
     free(ptrMem);
+    return 0;
 }
 
-void test_mem2(void)
+int test_mem2(void)
 {
     double *ptd;
     int max;
     int number;
     int i =0;
-
+    double tmpIn;
     puts("What is the maximum number of type double entries?");
     scanf("%d",&max);
     ptd = (double *) malloc(max * sizeof(double));
@@ -36,20 +37,19 @@ void test_mem2(void)
     }
     
     puts("Enter values (q to quit): ");
-    while(i < max && scanf("%1f",&ptd[i]) != 'q')
+    do
+    {
+        scanf("%lf",&ptd[i]);
         i++;
+    } while (i<max && tmpIn != 'q');
     
+
     printf("Here are your entries %d entries: \n",number = i);
     for(i =0 ;i< number; i++)
     {
-        printf("%7.2f ",ptd[i]);
-        if(i % 7 == 6)
-            putchar('\n');
+        printf("%f \n",*ptd++);
     }
-    if(i % 7 == 6)
-        putchar('\n');
-
-    puts("Done");
+    puts("Done\n");
     free(ptd);
     return 0;
 }
